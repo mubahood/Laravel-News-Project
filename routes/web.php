@@ -1,18 +1,23 @@
 <?php
 
+use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+Route::get('/', [MainController::class, 'index']);
+Route::get('about-us', [MainController::class, 'about_us']);
+Route::get('contact-us', [MainController::class, 'contact_us']);
 
-Route::get('/', function () {
-    return view('welcome');
-});
+/* Route::get('about-us', function () {
+    return route('contact');
+})->name('about'); */
+
+
+
+Route::get('news-details/{id}', function ($id) {
+    return 'news-details for post => ' . $id;
+})->name('about');
+
+
+Route::get('contact-us', function () {
+    return 'this is contact us page';
+})->name('contact');
