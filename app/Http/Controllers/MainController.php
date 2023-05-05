@@ -8,19 +8,33 @@ class MainController extends Controller
 {
     public function index()
     {
-        //our logic
-        return view('index');
+        //logic...
+        $name = 'John Black';
+        $sex = 'Male';
+        $colors = [
+            'Black',
+            'Yellow',
+            'Red',
+            'Pink',
+            'Blue',
+            'Green',
+        ];
+        return view('home', [
+            'name' => $name,
+            'sex' => $sex,
+            'colors' => $colors
+        ]);
     }
 
     public function about_us()
     {
         //
-        return ("this is about us from main controller");
+        return view('others\about-us');
     }
 
     public function contact_us()
     {
         //
-        return ("this is contact us from main controller");
+        return view('other\contact-us');
     }
 }
