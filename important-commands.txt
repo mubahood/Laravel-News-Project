@@ -1,1 +1,33 @@
 php artisan make:controller MainPostController
+php artisan migrate
+php artisan make:migration create_table_name_table
+php artisan make:migration create_.........._table 
+php artisan make:migration create_news_categories_table
+php artisan make:migration create_comments_table
+
+
+
+TABLES
+- News Category
+---> name
+---> photo
+---> details
+
+- News Post
+---> title
+---> body
+---> photo
+---> views
+---> user_id
+---> news_category_id
+
+- Comments
+---> user_id
+---> news_post_id
+---> body
+
+
+TIPS
+- Make sure table names are always in plural
+- Use lowercase
+- Use snake case eg. News Categories => news_categories
