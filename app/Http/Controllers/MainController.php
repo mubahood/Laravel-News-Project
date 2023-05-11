@@ -8,6 +8,7 @@ class MainController extends Controller
 {
     public function index()
     {
+        return view('index');
         //logic...
         $name = 'John Black';
         $sex = 'Male';
@@ -35,6 +36,6 @@ class MainController extends Controller
     public function contact_us()
     {
         //
-        return view('other\contact-us');
+        return view('others/contact-us');
     }
 }
