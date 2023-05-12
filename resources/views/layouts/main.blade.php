@@ -17,6 +17,7 @@
     <head><u>MODEL</u></head>
     <p><a href="{{ route('model-saving') }}">Saving</a></p>
     <p><a href="{{ route('model-querying') }}">Querying</a></p>
+    <p><a href="{{ route('model-relationships') }}">Relationships</a></p>
 
     <hr>
     @yield('content')

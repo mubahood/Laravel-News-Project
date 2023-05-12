@@ -10,13 +10,17 @@ class NewsCategory extends Model
 {
     protected $table = 'news_categories';
 
+    public function posts()
+    {
+        return $this->hasMany(NewsPost::class, 'news_category_id');
+    }
 
     public static function boot()
     {
         parent::boot();
 
         self::creating(function ($m) {
-            //$m->name = "New " . $m->name;
+            $m->name = strtoupper($m->name);
             $old = NewsCategory::where('name', $m->name)->first();
             if ($old != null) {
                 return false;
@@ -36,6 +40,7 @@ class NewsCategory extends Model
         });
 
         self::created(function ($m) {
+            //
             return $m;
         });
 
@@ -54,13 +59,18 @@ class NewsCategory extends Model
     public function getNameAttribute($name)
     {
         return $name;
-        //return strtoupper($name) . ".";
+        //....
+        return strtoupper($name) . ".";
     }
+
+
 
     public function getShortNameAttribute()
     {
+        //
         return substr($this->name, 0, 3);
     }
+
 
     protected $appends = ['short_name'];
 
