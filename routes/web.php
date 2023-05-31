@@ -1,9 +1,30 @@
 <?php
 
 use App\Http\Controllers\MainController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [MainController::class, 'index'])->name('home');
+Route::post('register', [MainController::class, 'register'])->name('register');
+Route::get('dashboard', function () {
+    die('dashboard');
+})->name('dashboard');
+Route::get('logout', function () {
+    Auth::logout();
+    return redirect()->intended('/');
+})->name('logout');
+
+
+Route::post('login',  [MainController::class, 'login'])->name('login');
+
+Route::get('login', function () {
+    if (Auth::check()) {
+        return redirect()->intended('dashboard');
+    }
+    return view('login');
+})->name('login');
+
+
 Route::get('about-us', [MainController::class, 'about_us'])->name('about');
 Route::get('contact-us', [MainController::class, 'contact_us'])->name('contact');
 Route::get('model-saving', [MainController::class, 'model_saving'])->name('model-saving');

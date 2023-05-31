@@ -4,10 +4,86 @@ namespace App\Http\Controllers;
 
 use App\Models\NewsCategory;
 use App\Models\NewsPost;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class MainController extends Controller
 {
+
+    public function login(Request $r)
+    {
+        if ($r->login_password == null) {
+            return Redirect::back()
+                ->withErrors(['login_password' => ['Passwords is required']])
+                ->withInput();
+        }
+        $u = User::where('email', $r->login_email)->first();
+        if ($u == null) {
+            return Redirect::back()
+                ->withErrors(['login_email' => ['User with provided email does not exist on our database.']])
+                ->withInput();
+        }
+
+        $credentials = [
+            'email' => $u->login_email,
+            'password' => $r->login_password,
+        ];
+
+        if (Auth::attempt($credentials)) {
+            return redirect()->intended('dashboard');
+        } else {
+            return Redirect::back()
+                ->withErrors(['login_password' => ['Wrong password.']])
+                ->withInput();
+        }
+    }
+
+    public function register(Request $r)
+    {
+        if ($r->password != $r->password_2) {
+            return Redirect::back()
+                ->withErrors(['password' => ['Passwords did not match']])
+                ->withInput();
+        }
+        $u = User::where('email', $r->email)->first();
+
+        if ($u != null) {
+            return Redirect::back()
+                ->withErrors(['email' => ['User with same email address already exist on our database.']])
+                ->withInput();
+        }
+
+        $u = new User();
+        $u->name = $r->name;
+        $u->email = $r->email;
+        $u->user_type = 'default';
+        $u->password = password_hash($r->password, PASSWORD_DEFAULT);
+
+        try {
+            $u->save();
+            $credentials = [
+                'email' => $u->email,
+                'password' => $r->password,
+            ];
+
+            if (Auth::attempt($credentials)) {
+                return redirect()->intended('dashboard');
+            } else {
+                return Redirect::back()
+                    ->withErrors(['email' => ['Failed to log you in.']])
+                    ->withInput();
+            }
+        } catch (\Throwable $th) {
+            return Redirect::back()
+                ->withErrors(['email' => ['Failed to create eacount because ' . $th]])
+                ->withInput();
+        }
+    }
+
+
+
     public function model_relationships()
     {
         $cats = NewsCategory::all();
