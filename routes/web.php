@@ -1,14 +1,17 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [MainController::class, 'index'])->name('home');
 Route::post('register', [MainController::class, 'register'])->name('register');
-Route::get('dashboard', function () {
-    die('dashboard');
-})->name('dashboard');
+Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('dashboard/categories', [DashboardController::class, 'categories'])->name('categories');
+Route::get('dashboard/categories/create', [DashboardController::class, 'categories_create'])->name('categories_create');
+Route::post('dashboard/categories/create', [DashboardController::class, 'categories_store'])->name('categories-create');
+
 Route::get('logout', function () {
     Auth::logout();
     return redirect()->intended('/');

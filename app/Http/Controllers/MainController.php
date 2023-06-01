@@ -27,7 +27,7 @@ class MainController extends Controller
         }
 
         $credentials = [
-            'email' => $u->login_email,
+            'id' => $u->id,
             'password' => $r->login_password,
         ];
 

@@ -41,4 +41,22 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public static function file_uploader($files)
+    {
+        $uploads = [];
+        foreach ($files as $key => $file) {
+            $fileName = $file['name'];
+            $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
+            $newFileName = uniqid() . '.' . $fileExtension;
+            $fileTmpName = $file['tmp_name'];
+            $rootDirectory = $_SERVER['DOCUMENT_ROOT'];
+            $destination = $rootDirectory . "/" . $newFileName;
+            if (move_uploaded_file($fileTmpName, $destination)) {
+                $uploads[] = $newFileName;
+            }
+        }
+        return $uploads;
+    }
 }

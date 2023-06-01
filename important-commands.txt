@@ -1,3 +1,4 @@
+php artisan make:controller DashboardController
 php artisan make:controller MainPostController
 php artisan migrate
 php artisan make:migration create_table_name_table
