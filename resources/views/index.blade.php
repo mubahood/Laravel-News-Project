@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('title')
-    HOME PAGE
+    HOME PAGE.
 @endsection
  
 @section('content')
