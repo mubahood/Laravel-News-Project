@@ -8,7 +8,7 @@
 @endsection
 
 @section('content')
-    <form enctype="multipart/form-data" method="post">
+    <form enctype="multipart/form-data" action="{{ route('categories_create') }}" method="post">
         {!! csrf_field() !!}
 
         <div class="form-group">

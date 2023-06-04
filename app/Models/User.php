@@ -52,7 +52,7 @@ class User extends Authenticatable
             $newFileName = uniqid() . '.' . $fileExtension;
             $fileTmpName = $file['tmp_name'];
             $rootDirectory = $_SERVER['DOCUMENT_ROOT'];
-            $destination = $rootDirectory . "/" . $newFileName;
+            $destination = $rootDirectory . "/uploads/" . $newFileName;
             if (move_uploaded_file($fileTmpName, $destination)) {
                 $uploads[] = $newFileName;
             }

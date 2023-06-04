@@ -2,15 +2,18 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MainController;
+use App\Http\Resources\PostResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [MainController::class, 'index'])->name('home');
+Route::get('/news/{id}', [MainController::class, 'news'])->name('news');
 Route::post('register', [MainController::class, 'register'])->name('register');
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('dashboard/categories', [DashboardController::class, 'categories'])->name('categories');
 Route::get('dashboard/categories/create', [DashboardController::class, 'categories_create'])->name('categories_create');
 Route::post('dashboard/categories/create', [DashboardController::class, 'categories_store'])->name('categories-create');
+Route::resource('dashboard/posts', PostResource::class); 
 
 Route::get('logout', function () {
     Auth::logout();

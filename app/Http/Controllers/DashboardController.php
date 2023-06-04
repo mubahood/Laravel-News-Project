@@ -17,7 +17,10 @@ class DashboardController extends Controller
     }
     public function categories()
     {
-        return view('dashboard.categories');
+        $cats = NewsCategory::where([])->orderBy('name', 'asc')->get();
+        return view('dashboard.categories', [
+            'categories' => $cats,
+        ]);
     }
     public function categories_create()
     {
@@ -32,17 +35,17 @@ class DashboardController extends Controller
         if (isset($images[0])) {
             $thumb = $images[0];
         }
-        
+
         $cat = new NewsCategory();
         $cat->name = $_POST['name'];
         $cat->details = $_POST['details'];
         $cat->photo = $thumb;
-        
-        if($cat->save()){
-            return redirect()->intended('categories');
-        }else{
+
+        if ($cat->save()) {
+            return redirect()->intended(route('categories'));
+        } else {
             return Redirect::back()
-            ->withInput();
+                ->withInput();
         }
 
         die("time to create acateroye");

@@ -116,9 +116,19 @@ class MainController extends Controller
         $p->save();
         */
     }
+    public function news($id)
+    {
+        $p = NewsPost::findorfail($id);
+        return view('news-details', [
+            'post' => $p
+        ]);
+    }
     public function index()
     {
-        return view('index');
+        $posts = NewsPost::all();
+        return view('index', [
+            'posts' => $posts
+        ]);
         //logic...
         $name = 'John Black';
         $sex = 'Male';

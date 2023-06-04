@@ -37,8 +37,8 @@
                 <a href="#" class="list-group-item list-group-item-action">
                     CREATE NEWS POST
                 </a>
-                <a href="#" class="list-group-item list-group-item-action">
-                    NEWS POSTs
+                <a href="{{ url('dashboard/posts') }}" class="list-group-item list-group-item-action">
+                    NEWS POSTS
                 </a>
                 <a href="{{ route('categories') }}" class="list-group-item list-group-item-action">
                     NEWS CATEGORIES
